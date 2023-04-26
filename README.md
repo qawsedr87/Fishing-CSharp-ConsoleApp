@@ -1,4 +1,4 @@
-# Fishing Game 
+# Fishing Game
 
 This repository is for the midterm project in C#II Spring 2023 Course. 
 
@@ -6,6 +6,17 @@ This repository is for the midterm project in C#II Spring 2023 Course.
 > Note: You'll have to change the code in `init` branch, so it is not working `fish_final.cs`.
 
 2. Please check out `main` branch if you are instered in the implementation.
+
+
+## Getting Started
+
+```shell
+git clone git@github.com:qawsedr87/Fishing-CSharp-ConsoleApp.git
+
+cd Fishing_CSharp_ConsoleApp 
+
+# refactor `fish_final.cs`
+```
 
 Here is more details about this fishing game project, 
 
