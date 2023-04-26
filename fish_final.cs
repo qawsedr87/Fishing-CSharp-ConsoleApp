@@ -36,7 +36,7 @@ namespace fishing_game
                     new Albacore(35),
 
                     // yellowtail has 15% chance of biting
-                    new YellowTail(15),
+                    new Yellowtail(15),
 
                 })
             };
@@ -74,6 +74,7 @@ namespace fishing_game
             Random rand = new Random();
 
             // list of fishes in our container
+            List<Fish> container = new List<Fish>();
 
 
             Console.WriteLine(string.Format("Our container holds {0} fish. Keep the ones you love.", full_container));
@@ -126,66 +127,21 @@ namespace fishing_game
 
             Console.WriteLine("We're full! Let's look at what we caught.");
 
-            // print all fish
+            // TODO: print all fish
 
 
             Console.WriteLine("\n\n\n");
         }
-    }
 
-
-
-    /// <summary>
-    /// Base fish class
-    /// </summary>
-    class Fish
-    {
-
-        public string Name { get; set; }
-        public int MarketPrice { get; set; }
-        public int BiteProbability { get; set; }
-
-        public Fish(int probability)
+        private static void bass_pro_shop()
         {
-            BiteProbability = probability;
+            // TODO
         }
 
-        /// <summary>
-        /// Random chance at fish biting bait
-        /// </summary>
-        /// <returns><c>true</c>, if bait was bitten, <c>false</c> otherwise.</returns>
-        internal virtual bool BitesBait(int chance)
+        private static void sell_fish()
         {
-            if (chance < BiteProbability)
-            {
-                return true;
-            }
-            return false;
+            // TODO
         }
-
-        /// <summary>
-        /// Each fish needs to be caught using the proper technique. 
-        /// </summary>
-        /// <returns><c>true</c>, if fish was caught, <c>false</c> otherwise.</returns>
-        /// <param name="input">Input.</param>
-        internal bool IsCaught(string input)
-        {
-            if (input == "1")
-            {
-                return true;
-            }
-            return false;
-        }
-    }
-
-    class Catfish : Fish
-    {
-        public Catfish(int probability) : base(probability)
-        {
-            MarketPrice = 10;
-            Name = "catfish";
-        }
-
     }
 
 }
