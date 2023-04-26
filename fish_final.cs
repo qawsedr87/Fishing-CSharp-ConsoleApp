@@ -6,6 +6,11 @@ namespace fishing_game
 {
     class Game
     {
+        // FIXME
+        private static int SELL_MONEY = 0;
+
+        private static List<Fish> container = new List<Fish>();
+
         static void Main(string[] args)
         {
             /* KEEP THIS START */
@@ -53,9 +58,15 @@ namespace fishing_game
             };
             /* KEEP THIS END */
 
+            string input = get_main_menu();
 
-            Console.WriteLine("Welcome to deep sea fishing!");
-            Console.WriteLine("---------");
+            choose_lake(all_lakes);
+
+            bass_pro_shop(all_rods);
+        }
+
+        private static string get_main_menu()
+        {
 
             Console.WriteLine("1. Go fishing");
             Console.WriteLine("2. Bass pro shop");
@@ -64,9 +75,32 @@ namespace fishing_game
 
             string input = Console.ReadLine();
 
+            // TODO: check input is in {1, 2, 3} or null or invaild value
+
+            return input;
+
         }
 
+        private static void choose_lake(List<Lake> lakes)
+        {
 
+            // show list of lakes
+            for (int i = 0; i < lakes.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {lakes[i].Name}");
+            }
+
+            string input = Console.ReadLine();
+
+            int index = int.Parse(input) - 1;
+            Lake lake = lakes[index];
+
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine($"Welcome to Lake {lake.Name}");
+
+            go_fishing(lake.Fishes);
+
+        }
 
         private static void go_fishing(List<Fish> availableFishes)
         {
@@ -74,8 +108,11 @@ namespace fishing_game
             Random rand = new Random();
 
             // list of fishes in our container
-            List<Fish> container = new List<Fish>();
-
+            Console.WriteLine("Fish pool with:");
+            availableFishes.ForEach(fish =>
+            {
+                Console.WriteLine($"{fish.Name} ${fish.MarketPrice} with {fish.BiteProbability}% be caught");
+            });
 
             Console.WriteLine(string.Format("Our container holds {0} fish. Keep the ones you love.", full_container));
             Console.WriteLine("Let's fish!");
@@ -127,19 +164,42 @@ namespace fishing_game
 
             Console.WriteLine("We're full! Let's look at what we caught.");
 
-            // TODO: print all fish
-
+            // print all fish
+            container.ForEach(fish => Console.WriteLine(fish.Name));
 
             Console.WriteLine("\n\n\n");
         }
 
-        private static void bass_pro_shop()
+        private static void bass_pro_shop(List<FishingRod> rods)
         {
-            // TODO
+            Console.WriteLine("Welcome to the Bass Pro shop!");
+            Console.WriteLine(string.Format($"You have ${0}", SELL_MONEY));
+
+            // Show list of rods
+            for (int i = 0; i < rods.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {rods[i].Name} for ${rods[i].Price}");
+            }
+
+            Console.WriteLine("5. Return to main menu");
+
+            Console.WriteLine("What fishing rod would you like to buy?");
+
+            string input = Console.ReadLine();
+
+            // TODO: check input is in {1, 2, 3, 4, 5} or null or invaild value
+
         }
 
         private static void sell_fish()
         {
+
+            while (container.Count < 1)
+            {
+                Console.WriteLine("You have no fish. Come back when you have something to sell.");
+                get_main_menu();
+            }
+
             // TODO
         }
     }
