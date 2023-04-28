@@ -38,4 +38,14 @@ class Utils
         return totalPrice;
     }
 
+    public static void ShowFullFish(List<Fish> fishes)
+    {
+        Console.WriteLine("We're full! Let's look at what we caught.");
+
+        // print all fish
+        fishes.ForEach(fish => Console.WriteLine(fish.Name));
+
+        Console.WriteLine(Constants.BlankLine);
+    }
+
 }

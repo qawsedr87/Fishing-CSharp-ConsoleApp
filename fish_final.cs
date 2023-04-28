@@ -6,10 +6,10 @@ namespace fishing_game
 {
     class Game
     {
-        // FIXME
         private static int money = 0;
 
         private static List<Fish> container = new List<Fish>();
+        private static FishingRod usedRod = new FishingRod("Bamboo", 0, 0);
 
         static void Main(string[] args)
         {
@@ -63,6 +63,9 @@ namespace fishing_game
 
             while (true)
             {
+                // default 
+                Console.WriteLine($"====== '{GetRod().Name}' Costs ${GetRod().Price} with +{GetRod().Buff} buff. ====== ");
+
                 // main menu
                 string input = get_main_menu();
 
@@ -71,6 +74,16 @@ namespace fishing_game
                 else if (input == "2") bass_pro_shop(all_rods);
                 else if (input == "3") sell_fish();
             }
+        }
+
+        private static void SetRod(FishingRod newRod)
+        {
+            usedRod = newRod;
+        }
+
+        private static FishingRod GetRod()
+        {
+            return usedRod;
         }
 
 
@@ -121,6 +134,13 @@ namespace fishing_game
 
         private static void choose_lake(List<Lake> lakes)
         {
+            // check container if is 4 
+            if (GetFish().Count >= 4)
+            {
+                Utils.ShowFullFish(GetFish());
+                return;
+            }
+
             // show lake menu
             Console.WriteLine(Constants.BlankLine);
             Utils.ShowOptionsFromMenu("Lake");
@@ -172,6 +192,13 @@ namespace fishing_game
                 // generate random number to see if fish bites bait
                 int fish_bites_chance = rand.Next(100);
 
+                // FIXME: chance if you get a good rod
+                int buff = GetRod().Buff;
+                Console.WriteLine($"There'll be ({fish_bites_chance} + {buff})% chance of catching {availableFishes[random_fish_index].Name}!");
+
+                fish_bites_chance += buff;
+
+
                 // random chance if fish decides to bite the bait
                 if (availableFishes[random_fish_index].BitesBait(fish_bites_chance))
                 {
@@ -207,12 +234,7 @@ namespace fishing_game
                 }
             }
 
-            Console.WriteLine("We're full! Let's look at what we caught.");
-
-            // print all fish
-            container.ForEach(fish => Console.WriteLine(fish.Name));
-
-            Console.WriteLine(Constants.BlankLine);
+            Utils.ShowFullFish(GetFish());
         }
 
         private static void bass_pro_shop(List<FishingRod> rods)
@@ -260,11 +282,14 @@ namespace fishing_game
             }
             else
             {
-
+                // sufficient 
                 SetMoney(GetMoney() - rod.Price);
 
                 Console.WriteLine(Constants.AfterBuyingRodMessage, rod.Name, rod.Price);
                 Console.WriteLine(Constants.BalanceMessage, GetMoney());
+
+                // change the rod 
+                SetRod(rod);
             }
 
             bass_pro_shop(rods);

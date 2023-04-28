@@ -21,6 +21,7 @@ class Fish
     /// <returns><c>true</c>, if bait was bitten, <c>false</c> otherwise.</returns>
     internal virtual bool BitesBait(int chance)
     {
+        // FIXME: why not chance > BiteProbability ?????
         if (chance < BiteProbability)
         {
             return true;
