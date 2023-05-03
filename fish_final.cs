@@ -9,6 +9,8 @@ namespace fishing_game
         private static int money = 0;
 
         private static List<Fish> container = new List<Fish>();
+
+        // initial rod
         private static FishingRod usedRod = new FishingRod("Bamboo", 0, 0);
 
         static void Main(string[] args)
@@ -194,9 +196,9 @@ namespace fishing_game
 
                 // FIXME: chance if you get a good rod
                 int buff = GetRod().Buff;
-                Console.WriteLine($"There'll be ({fish_bites_chance} + {buff})% chance of catching {availableFishes[random_fish_index].Name}!");
+                Console.WriteLine($"There'll be ({fish_bites_chance} - {buff})% chance of catching {availableFishes[random_fish_index].Name}!");
 
-                fish_bites_chance += buff;
+                fish_bites_chance -= buff;
 
 
                 // random chance if fish decides to bite the bait
